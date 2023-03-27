@@ -1,4 +1,0 @@
-../Core/Src/teamATBasic_V1_1.cpp:25:14:unsigned int arrayToUint(const char*, uint8_t)	24	static
-../Core/Src/teamATBasic_V1_1.cpp:51:9:uint8_t uintToArray(uint16_t, char*, uint8_t)	32	static
-../Core/Src/teamATBasic_V1_1.cpp:89:10:uint32_t timeElapsed(uint32_t, uint32_t)	16	static
-../Core/Src/teamATBasic_V1_1.cpp:104:6:void millisToHumanTime(long unsigned int, char*, uint32_t)	48	static
