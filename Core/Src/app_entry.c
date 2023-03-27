@@ -594,15 +594,15 @@ void shci_cmd_resp_wait(uint32_t timeout)
 /* USER CODE BEGIN FD_WRAP_FUNCTIONS */
 void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 {
-  switch (GPIO_Pin)
-  {
-    case GPIO_PIN_12:
-     APP_BLE_Key_Button1_Action();
-      break;
-    default:
-      break;
-
-  }
+//  switch (GPIO_Pin)
+//  {
+//    case GPIO_PIN_12:
+//     APP_BLE_Key_Button1_Action();
+//      break;
+//    default:
+//      break;
+//
+//  }
   return;
 }
 

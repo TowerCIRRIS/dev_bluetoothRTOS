@@ -44,7 +44,7 @@ typedef struct
   uint8_t               Configflags_c_Notification_Status;
   /* controlService */
   /* USER CODE BEGIN CUSTOM_APP_Context_t */
-  uint8_t ButtonStatus;
+  //uint8_t ButtonStatus;
   /* USER CODE END CUSTOM_APP_Context_t */
 
   uint16_t              ConnectionHandle;
@@ -98,7 +98,7 @@ static void Custom_Configflags_c_Send_Notification(void);
 /* controlService */
 
 /* USER CODE BEGIN PFP */
-static void P2PS_Send_Notification(void);
+//static void P2PS_Send_Notification(void);
 
 
 
@@ -285,9 +285,7 @@ void Custom_APP_Notification(Custom_App_ConnHandle_Not_evt_t *pNotification)
 void Custom_APP_Init(void)
 {
   /* USER CODE BEGIN CUSTOM_APP_Init */
-	UTIL_SEQ_RegTask( 1<< CFG_TASK_SW1_BUTTON_PUSHED_ID, UTIL_SEQ_RFU, P2PS_Send_Notification );
-
-	  Custom_App_Context.ButtonStatus = 0;
+	  //Custom_App_Context.ButtonStatus = 0;
 	  Custom_App_Context.Angle_c_Notification_Status = 1;
 	  Custom_App_Context.Configflags_c_Notification_Status = 1;
 	  Custom_App_Context.Livedata_c_Notification_Status = 1;
@@ -467,68 +465,7 @@ void Custom_Configflags_c_Send_Notification(void) /* Property Notification */
 /* controlService */
 
 /* USER CODE BEGIN FD_LOCAL_FUNCTIONS*/
-void P2PS_APP_SW1_Button_Action(void)
-{
-  UTIL_SEQ_SetTask( 1<<CFG_TASK_SW1_BUTTON_PUSHED_ID, CFG_SCH_PRIO_0);
 
-  return;
-}
-
-void P2PS_Send_Notification(void)
-{
-
-	if (Custom_App_Context.ButtonStatus == 0)
-	{
-	  Custom_App_Context.ButtonStatus = 1;
-	  //NotifyCharData[0] = 0x00;
-	  //NotifyCharData[1] = 0x01;
-	}
-	else
-	{
-	  Custom_App_Context.ButtonStatus = 0;
-	  //NotifyCharData[0] = 0x00;
-	  //NotifyCharData[1] = 0x00;
-	}
-
-//	if(Custom_App_Context.Button_c_Notification_Status){
-//		APP_DBG_MSG("-- CUSTOM APPLICATION SERVER  : INFORM CLIENT BUTTON 1 PUSHED \n ");
-//		APP_DBG_MSG(" \n\r");
-//		Custom_Button_c_Send_Notification();
-//   } else {
-//	APP_DBG_MSG("-- CUSTOM APPLICATION SERVER : CAN'T INFORM CLIENT -  NOTIFICATION DISABLED\n ");
-//   }
-
-  return;
-}
-
-//void P2PS_Send_ConfigFlags(void)
-//{
-//
-////	if (Custom_App_Context.ButtonStatus == 0)
-////	{
-////	  //Custom_App_Context.
-////	  //NotifyCharData[0] = 0x00;
-////	  //NotifyCharData[1] = 0x01;
-////	}
-////	else
-////	{
-////	  Custom_App_Context.ButtonStatus = 0;
-////	  //NotifyCharData[0] = 0x00;
-////	  //NotifyCharData[1] = 0x00;
-////	}
-//
-//	NotifyCharData[0] = 0x00;
-//	NotifyCharData[1] = 0x00;
-//	if(Custom_App_Context.Configflags_c_Notification_Status){
-//		APP_DBG_MSG("-- CUSTOM APPLICATION SERVER  : INFORM CLIENT CONFIGFLAGS \n ");
-//		APP_DBG_MSG(" \n\r");
-//		Custom_Button_c_Send_Notification();
-//   } else {
-//	APP_DBG_MSG("-- CUSTOM APPLICATION SERVER : CAN'T INFORM CLIENT -  NOTIFICATION DISABLED\n ");
-//   }
-//
-//  return;
-//}
 
 void livedataUpdateChar(char *btString) /* Property Read */
 {
@@ -566,22 +503,6 @@ void bt_updateConfigString(char *btString) /* Property Read */
     Custom_STM_App_Update_Char(CUSTOM_STM_CONFIGFLAGS_C, (uint8_t *)UpdateCharData);
 
 }
-
-
-//void bt_readConfigString(char *btString)
-//{
-//	for(int i = 0 ; i < 53; i++)
-//	{
-//		btString[i] = configString[i];
-//	}
-//
-//	newConfigPresent = false;
-//}
-
-//bool bt_newConfigPresent()
-//{
-//	return newConfigPresent;
-//}
 
 
 
