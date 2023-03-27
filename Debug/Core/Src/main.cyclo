@@ -1,8 +1,5 @@
-stm32wbxx_ll_rcc.h:1675:22:void LL_RCC_LSE_SetDriveCapability(uint32_t)	1
-main.cpp:87:5:int main()	2
-main.cpp:208:6:void SystemClock_Config()	3
-main.cpp:259:6:void PeriphCommonClock_Config()	2
-main.cpp:284:6:void sendConfigBluetooth()	2
-main.cpp:369:6:void getControlBluetooth(char*, int)	3
-main.cpp:418:6:void getConfigBluetooth(char*, int)	7
-main.cpp:557:6:void Error_Handler()	1
+stm32wbxx_ll_rcc.h:1679:22:LL_RCC_LSE_SetDriveCapability	1
+main.c:68:5:main	1
+main.c:123:6:SystemClock_Config	3
+main.c:174:6:PeriphCommonClock_Config	2
+main.c:202:6:Error_Handler	1

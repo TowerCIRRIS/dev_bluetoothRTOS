@@ -11,6 +11,7 @@ C_SRCS += \
 ../Core/Src/gpio.c \
 ../Core/Src/hw_timerserver.c \
 ../Core/Src/hw_uart.c \
+../Core/Src/main.c \
 ../Core/Src/rf.c \
 ../Core/Src/rtc.c \
 ../Core/Src/stm32_lpm_if.c \
@@ -32,6 +33,7 @@ C_DEPS += \
 ./Core/Src/gpio.d \
 ./Core/Src/hw_timerserver.d \
 ./Core/Src/hw_uart.d \
+./Core/Src/main.d \
 ./Core/Src/rf.d \
 ./Core/Src/rtc.d \
 ./Core/Src/stm32_lpm_if.d \

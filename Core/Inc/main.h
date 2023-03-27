@@ -66,6 +66,7 @@ void Error_Handler(void);
 #define BI_USER_EXTI_IRQn EXTI15_10_IRQn
 #define OUT_DEV_PWR_EN_Pin GPIO_PIN_3
 #define OUT_DEV_PWR_EN_GPIO_Port GPIOD
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

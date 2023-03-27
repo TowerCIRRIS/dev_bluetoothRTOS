@@ -59,34 +59,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := bluetooth_test_1
+BUILD_ARTIFACT_NAME := dev_bluetoothRTOS
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-bluetooth_test_1.elf \
+dev_bluetoothRTOS.elf \
 
 MAP_FILES += \
-bluetooth_test_1.map \
+dev_bluetoothRTOS.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-bluetooth_test_1.list \
+dev_bluetoothRTOS.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: bluetooth_test_1.elf secondary-outputs
+main-build: dev_bluetoothRTOS.elf secondary-outputs
 
 # Tool invocations
-bluetooth_test_1.elf bluetooth_test_1.map: $(OBJS) $(USER_OBJS) C:\STM32CubeIDEWorkspaces\CortexMini_dev\bluetooth_test_1\STM32WB5MMGHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "bluetooth_test_1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\STM32CubeIDEWorkspaces\CortexMini_dev\bluetooth_test_1\STM32WB5MMGHX_FLASH.ld" -Wl,-Map="bluetooth_test_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+dev_bluetoothRTOS.elf dev_bluetoothRTOS.map: $(OBJS) $(USER_OBJS) C:\STM32CubeIDEWorkspaces\CortexMini_dev\dev_bluetoothRTOS\STM32WB5MMGHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "dev_bluetoothRTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\STM32CubeIDEWorkspaces\CortexMini_dev\dev_bluetoothRTOS\STM32WB5MMGHX_FLASH.ld" -Wl,-Map="dev_bluetoothRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -95,14 +95,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-bluetooth_test_1.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "bluetooth_test_1.list"
+dev_bluetoothRTOS.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "dev_bluetoothRTOS.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) bluetooth_test_1.elf bluetooth_test_1.list bluetooth_test_1.map default.size.stdout
+	-$(RM) default.size.stdout dev_bluetoothRTOS.elf dev_bluetoothRTOS.list dev_bluetoothRTOS.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

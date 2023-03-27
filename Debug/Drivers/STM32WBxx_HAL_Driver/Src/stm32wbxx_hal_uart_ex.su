@@ -11,7 +11,8 @@
 ../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:605:19:HAL_UARTEx_SetTxFifoThreshold	24	static
 ../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:654:19:HAL_UARTEx_SetRxFifoThreshold	24	static
 ../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:714:19:HAL_UARTEx_ReceiveToIdle	40	static
-../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:842:19:HAL_UARTEx_ReceiveToIdle_IT	56	static,ignoring_inline_asm
-../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:908:19:HAL_UARTEx_ReceiveToIdle_DMA	56	static,ignoring_inline_asm
-../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:971:13:UARTEx_Wakeup_AddressConfig	24	static
-../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:989:13:UARTEx_SetNbDataToProcess	24	static
+../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:840:19:HAL_UARTEx_ReceiveToIdle_IT	56	static,ignoring_inline_asm
+../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:905:19:HAL_UARTEx_ReceiveToIdle_DMA	56	static,ignoring_inline_asm
+../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:973:29:HAL_UARTEx_GetRxEventType	16	static
+../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:997:13:UARTEx_Wakeup_AddressConfig	24	static
+../Drivers/STM32WBxx_HAL_Driver/Src/stm32wbxx_hal_uart_ex.c:1015:13:UARTEx_SetNbDataToProcess	24	static

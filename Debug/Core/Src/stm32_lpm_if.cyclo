@@ -2,11 +2,11 @@ stm32wbxx_ll_pwr.h:537:22:LL_PWR_SetPowerMode	1
 stm32wbxx_ll_pwr.h:2001:22:LL_PWR_ClearFlag_WU	1
 stm32wbxx_ll_pwr.h:2385:26:LL_PWR_IsActiveFlag_C2SB	2
 stm32wbxx_ll_pwr.h:2395:26:LL_PWR_IsActiveFlag_C2DS	2
-stm32wbxx_ll_rcc.h:1476:22:LL_RCC_HSI_Enable	1
-stm32wbxx_ll_rcc.h:1496:26:LL_RCC_HSI_IsReady	2
-stm32wbxx_ll_rcc.h:2054:22:LL_RCC_SetSysClkSource	1
-stm32wbxx_ll_rcc.h:2068:26:LL_RCC_GetSysClkSource	1
-stm32wbxx_ll_rcc.h:2384:22:LL_RCC_SetSMPSClockSource	1
+stm32wbxx_ll_rcc.h:1480:22:LL_RCC_HSI_Enable	1
+stm32wbxx_ll_rcc.h:1500:26:LL_RCC_HSI_IsReady	2
+stm32wbxx_ll_rcc.h:2058:22:LL_RCC_SetSysClkSource	1
+stm32wbxx_ll_rcc.h:2072:26:LL_RCC_GetSysClkSource	1
+stm32wbxx_ll_rcc.h:2388:22:LL_RCC_SetSMPSClockSource	1
 stm32wbxx_ll_cortex.h:311:22:LL_LPM_EnableSleep	1
 stm32wbxx_ll_cortex.h:322:22:LL_LPM_EnableDeepSleep	1
 stm32wbxx_ll_hsem.h:233:26:LL_HSEM_1StepLock	2

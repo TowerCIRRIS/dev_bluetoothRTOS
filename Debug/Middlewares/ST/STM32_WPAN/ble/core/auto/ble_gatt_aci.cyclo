@@ -44,3 +44,5 @@ ble_gatt_aci.c:1361:12:aci_gatt_update_char_value_ext	2
 ble_gatt_aci.c:1403:12:aci_gatt_deny_read	2
 ble_gatt_aci.c:1427:12:aci_gatt_set_access_permission	2
 ble_gatt_aci.c:1454:12:aci_gatt_store_db	2
+ble_gatt_aci.c:1468:12:aci_gatt_send_mult_notification	2
+ble_gatt_aci.c:1495:12:aci_gatt_read_multiple_var_char_value	2

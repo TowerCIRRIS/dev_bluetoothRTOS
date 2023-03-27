@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
+Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h \
  ../Core/Inc/stm32wbxx_hal_conf.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_dma.h \
@@ -52,9 +52,7 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_rtc.h \
  ../Middlewares/ST/STM32_WPAN/ble/core/ble_bufsize.h \
  ../Core/Inc/app_entry.h ../Core/Inc/app_common.h ../Core/Inc/dma.h \
- ../Core/Inc/main.h ../Core/Inc/rf.h ../Core/Inc/rtc.h ../Core/Inc/gpio.h \
- ../Core/Inc/usart.h ../Core/Inc/teamATbasic_V1_1.h \
- ../STM32_WPAN/App/custom_app.h
+ ../Core/Inc/main.h ../Core/Inc/rf.h ../Core/Inc/rtc.h ../Core/Inc/gpio.h
 ../Core/Inc/main.h:
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h:
 ../Core/Inc/stm32wbxx_hal_conf.h:
@@ -116,6 +114,3 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Core/Inc/rf.h:
 ../Core/Inc/rtc.h:
 ../Core/Inc/gpio.h:
-../Core/Inc/usart.h:
-../Core/Inc/teamATbasic_V1_1.h:
-../STM32_WPAN/App/custom_app.h:
