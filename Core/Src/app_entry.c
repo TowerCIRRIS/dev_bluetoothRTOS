@@ -22,6 +22,7 @@
 #include "app_common.h"
 #include "main.h"
 #include "app_entry.h"
+#include "app_ble.h"
 #include "ble.h"
 #include "tl.h"
 #include "cmsis_os.h"

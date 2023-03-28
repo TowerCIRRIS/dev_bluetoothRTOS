@@ -341,6 +341,8 @@ void APP_BLE_Init(void)
   /**
    * Initialize Ble Transport Layer
    */
+  Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id = osSemaphoreNew( 1, 0, NULL );
+
   Ble_Tl_Init();
 
   /**
@@ -353,7 +355,7 @@ void APP_BLE_Init(void)
    */
   //UTIL_SEQ_RegTask(1<<CFG_TASK_HCI_ASYNCH_EVT_ID, UTIL_SEQ_RFU, hci_user_evt_proc);
 
-  Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id = osSemaphoreNew( 1, 0, NULL );
+
 
   TASK_HCI_ASYNCH_EVT_ProcessId = osThreadNew(TASK_HCI_ASYNCH_EVT_Process, NULL, &TASK_HCI_ASYNCH_EVT_Process_attr);
 
