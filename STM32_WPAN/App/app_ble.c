@@ -183,6 +183,8 @@ typedef struct
 /* Private variables ---------------------------------------------------------*/
 PLACE_IN_SECTION("MB_MEM1") ALIGN(4) static TL_CmdPacket_t BleCmdBuffer;
 
+
+
 static const uint8_t a_MBdAddr[BD_ADDR_SIZE_LOCAL] =
 {
   (uint8_t)((CFG_ADV_BD_ADDRESS & 0x0000000000FF)),
@@ -235,16 +237,35 @@ uint8_t a_AdvData[19] =
 
 /* USER CODE BEGIN PV */
 
+
 osThreadId_t TASK_ADV_CANCEL_ProcessId;
 const osThreadAttr_t TASK_ADV_CANCEL_Process_attr = {
-    .name = CFG_TASK_ADV_CANCEL_PROCESS_NAME,
-    .attr_bits = CFG_TASK_ADV_CANCEL_PROCESS_ATTR_BITS,
-    .cb_mem = CFG_TASK_ADV_CANCEL_PROCESS_CB_MEM,
-    .cb_size = CFG_TASK_ADV_CANCEL_PROCESS_CB_SIZE,
-    .stack_mem = CFG_TASK_ADV_CANCEL_PROCESS_STACK_MEM,
-    .priority = CFG_TASK_ADV_CANCEL_PROCESS_PRIORITY,
-    .stack_size = CFG_TASK_ADV_CANCEL_PROCESS_STACK_SIZE
+    .name = "TASK_ADV_CANCEL",
+	.stack_size = 128*4,
+    .priority = (osPriority_t) osPriorityNone
+//    .attr_bits = CFG_TASK_ADV_CANCEL_PROCESS_ATTR_BITS,
+//    .cb_mem = CFG_TASK_ADV_CANCEL_PROCESS_CB_MEM,
+//    .cb_size = CFG_TASK_ADV_CANCEL_PROCESS_CB_SIZE,
+//    .stack_mem = CFG_TASK_ADV_CANCEL_PROCESS_STACK_MEM,
 };
+
+//osSemaphoreId_t Sem_TASK_HCI_ASYNCH_EVT_Id;
+osSemaphoreId_t Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id;
+
+osThreadId_t TASK_HCI_ASYNCH_EVT_ProcessId;
+const osThreadAttr_t TASK_HCI_ASYNCH_EVT_Process_attr = {
+    .name = "TASK_HCI_ASYNCH_EVT",
+	.stack_size = 128*4,
+    .priority = (osPriority_t) osPriorityNone
+//    .attr_bits = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_ATTR_BITS,
+//    .cb_mem = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_CB_MEM,
+//    .cb_size = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_CB_SIZE,
+//    .stack_mem = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_STACK_MEM,
+
+};
+
+osMutexId_t MtxHciId;
+
 
 /* USER CODE END PV */
 
@@ -262,7 +283,9 @@ static void Connection_Interval_Update_Req(void);
 #endif /* L2CAP_REQUEST_NEW_CONN_PARAM != 0 */
 
 /* USER CODE BEGIN PFP */
+
 static void TASK_ADV_CANCEL_Process(void *argument);
+static void TASK_HCI_ASYNCH_EVT_Process(void *argument);
 /* USER CODE END PFP */
 
 /* External variables --------------------------------------------------------*/
@@ -328,7 +351,13 @@ void APP_BLE_Init(void)
   /**
    * Register the hci transport layer to handle BLE User Asynchronous Events
    */
-  UTIL_SEQ_RegTask(1<<CFG_TASK_HCI_ASYNCH_EVT_ID, UTIL_SEQ_RFU, hci_user_evt_proc);
+  //UTIL_SEQ_RegTask(1<<CFG_TASK_HCI_ASYNCH_EVT_ID, UTIL_SEQ_RFU, hci_user_evt_proc);
+
+  Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id = osSemaphoreNew( 1, 0, NULL );
+
+  TASK_HCI_ASYNCH_EVT_ProcessId = osThreadNew(TASK_HCI_ASYNCH_EVT_Process, NULL, &TASK_HCI_ASYNCH_EVT_Process_attr);
+
+
 
   /**
    * Starts the BLE Stack on CPU2
@@ -370,7 +399,7 @@ void APP_BLE_Init(void)
 
 
   //UTIL_SEQ_RegTask(1<<CFG_TASK_ADV_CANCEL_ID, UTIL_SEQ_RFU, Adv_Cancel);
-  XyyProcessId = osThreadNew(TASK_ADV_CANCEL_Process, NULL, &TASK_ADV_CANCEL_Process_attr);
+  TASK_ADV_CANCEL_ProcessId = osThreadNew(TASK_ADV_CANCEL_Process, NULL, &TASK_ADV_CANCEL_Process_attr);
   /* USER CODE BEGIN APP_BLE_Init_4 */
 
   /* USER CODE END APP_BLE_Init_4 */
@@ -707,6 +736,8 @@ static void Ble_Tl_Init(void)
   Hci_Tl_Init_Conf.p_cmdbuffer = (uint8_t*)&BleCmdBuffer;
   Hci_Tl_Init_Conf.StatusNotCallBack = BLE_StatusNot;
   hci_init(BLE_UserEvtRx, (void*) &Hci_Tl_Init_Conf);
+
+  MtxHciId = osMutexNew( NULL );
 
   return;
 }
@@ -1107,6 +1138,19 @@ static void TASK_ADV_CANCEL_Process(void *argument)
   }
 }
 
+static void TASK_HCI_ASYNCH_EVT_Process(void *argument)
+{
+  UNUSED(argument);
+
+  for(;;)
+  {
+    osThreadFlagsWait( 1, osFlagsWaitAny, osWaitForever);
+    hci_user_evt_proc();
+  }
+}
+
+
+
 /* USER CODE END FD_LOCAL_FUNCTION */
 
 /*************************************************************
@@ -1206,24 +1250,27 @@ static void Connection_Interval_Update_Req(void)
  * WRAP FUNCTIONS
  *
  *************************************************************/
+
 void hci_notify_asynch_evt(void* p_Data)
 {
-  UTIL_SEQ_SetTask(1 << CFG_TASK_HCI_ASYNCH_EVT_ID, CFG_SCH_PRIO_0);
+  //UTIL_SEQ_SetTask(1 << CFG_TASK_HCI_ASYNCH_EVT_ID, CFG_SCH_PRIO_0);
+	osThreadFlagsSet( TASK_HCI_ASYNCH_EVT_ProcessId, 1 );
 
   return;
 }
 
 void hci_cmd_resp_release(uint32_t Flag)
 {
-  UTIL_SEQ_SetEvt(1 << CFG_IDLEEVT_HCI_CMD_EVT_RSP_ID);
+  //UTIL_SEQ_SetEvt(1 << CFG_IDLEEVT_HCI_CMD_EVT_RSP_ID);
+  osSemaphoreRelease( Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id );
 
   return;
 }
 
 void hci_cmd_resp_wait(uint32_t Timeout)
 {
-  UTIL_SEQ_WaitEvt(1 << CFG_IDLEEVT_HCI_CMD_EVT_RSP_ID);
-
+  //UTIL_SEQ_WaitEvt(1 << CFG_IDLEEVT_HCI_CMD_EVT_RSP_ID);
+	osSemaphoreAcquire( Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id, osWaitForever );
   return;
 }
 
@@ -1257,8 +1304,9 @@ static void BLE_StatusNot(HCI_TL_CmdStatus_t Status)
        * All tasks that may send an aci/hci commands shall be listed here
        * This is to prevent a new command is sent while one is already pending
        */
-      task_id_list = (1 << CFG_LAST_TASK_ID_WITH_HCICMD) - 1;
-      UTIL_SEQ_PauseTask(task_id_list);
+//      task_id_list = (1 << CFG_LAST_TASK_ID_WITH_HCICMD) - 1;
+//      UTIL_SEQ_PauseTask(task_id_list);
+    	osMutexAcquire( MtxHciId, osWaitForever );
       /* USER CODE BEGIN HCI_TL_CmdBusy */
 
       /* USER CODE END HCI_TL_CmdBusy */
@@ -1269,8 +1317,9 @@ static void BLE_StatusNot(HCI_TL_CmdStatus_t Status)
        * All tasks that may send an aci/hci commands shall be listed here
        * This is to prevent a new command is sent while one is already pending
        */
-      task_id_list = (1 << CFG_LAST_TASK_ID_WITH_HCICMD) - 1;
-      UTIL_SEQ_ResumeTask(task_id_list);
+//      task_id_list = (1 << CFG_LAST_TASK_ID_WITH_HCICMD) - 1;
+//      UTIL_SEQ_ResumeTask(task_id_list);
+    	osMutexRelease( MtxHciId );
       /* USER CODE BEGIN HCI_TL_CmdAvailable */
 
       /* USER CODE END HCI_TL_CmdAvailable */
