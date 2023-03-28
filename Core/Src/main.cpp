@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "dma.h"
 #include "rf.h"
 #include "rtc.h"
@@ -67,6 +68,7 @@ char deviceName[50];
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 //static void Config_HSE(void);
 void sendConfigBluetooth();
@@ -120,8 +122,11 @@ int main(void)
  // HAL_GPIO_WritePin(OUT_DEV_PWR_EN_GPIO_Port, OUT_DEV_PWR_EN_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
-  /* Init code for STM32_WPAN */
+  /* Init scheduler */
+  osKernelInitialize();  /* Init code for STM32_WPAN */
   MX_APPE_Init();
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
 
   char btString[53];
 
@@ -156,6 +161,11 @@ int main(void)
   uint32_t lastTime = 0;
 
   sprintf(deviceName,"Montre 1");
+  
+    /* Start scheduler */
+  osKernelStart();
+  /* We should never get here as control is now taken by the scheduler */
+  
   while (1)
   {
 
@@ -549,6 +559,28 @@ void getConfigBluetooth(char * cfgString, int stringSize)
 }
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM17 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM17) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
+
 
 /**
   * @brief  This function is executed in case of error occurrence.
