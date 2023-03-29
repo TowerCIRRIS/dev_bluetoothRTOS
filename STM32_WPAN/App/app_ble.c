@@ -243,28 +243,21 @@ const osThreadAttr_t TASK_ADV_CANCEL_Process_attr = {
     .name = "TASK_ADV_CANCEL",
 	.stack_size = 128*4,
     .priority = (osPriority_t) osPriorityNone
-//    .attr_bits = CFG_TASK_ADV_CANCEL_PROCESS_ATTR_BITS,
-//    .cb_mem = CFG_TASK_ADV_CANCEL_PROCESS_CB_MEM,
-//    .cb_size = CFG_TASK_ADV_CANCEL_PROCESS_CB_SIZE,
-//    .stack_mem = CFG_TASK_ADV_CANCEL_PROCESS_STACK_MEM,
 };
 
-//osSemaphoreId_t Sem_TASK_HCI_ASYNCH_EVT_Id;
+
 osSemaphoreId_t Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id;
+osMutexId_t MtxHciId;
 
 osThreadId_t TASK_HCI_ASYNCH_EVT_ProcessId;
 const osThreadAttr_t TASK_HCI_ASYNCH_EVT_Process_attr = {
-    .name = "TASK_HCI_ASYNCH_EVT",
-	.stack_size = 128*4,
-    .priority = (osPriority_t) osPriorityNone
-//    .attr_bits = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_ATTR_BITS,
-//    .cb_mem = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_CB_MEM,
-//    .cb_size = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_CB_SIZE,
-//    .stack_mem = CFG_TASK_HCI_ASYNCH_EVT_PROCESS_STACK_MEM,
+    .name = CFG_HCI_USER_EVT_PROCESS_NAME, // "TASK_HCI_ASYNCH_EVT",
+	.stack_size = CFG_HCI_USER_EVT_PROCESS_STACK_SIZE, // 128*4,
+    .priority = CFG_HCI_USER_EVT_PROCESS_PRIORITY // (osPriority_t) osPriorityNone
 
 };
 
-osMutexId_t MtxHciId;
+
 
 
 /* USER CODE END PV */
@@ -341,7 +334,6 @@ void APP_BLE_Init(void)
   /**
    * Initialize Ble Transport Layer
    */
-  Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id = osSemaphoreNew( 1, 0, NULL );
 
   Ble_Tl_Init();
 
@@ -357,7 +349,6 @@ void APP_BLE_Init(void)
 
 
 
-  TASK_HCI_ASYNCH_EVT_ProcessId = osThreadNew(TASK_HCI_ASYNCH_EVT_Process, NULL, &TASK_HCI_ASYNCH_EVT_Process_attr);
 
 
 
@@ -740,6 +731,18 @@ static void Ble_Tl_Init(void)
   hci_init(BLE_UserEvtRx, (void*) &Hci_Tl_Init_Conf);
 
   MtxHciId = osMutexNew( NULL );
+  Sem_CFG_IDLEEVT_HCI_CMD_EVT_RSP_Id = osSemaphoreNew( 1, 0, NULL );
+  TASK_HCI_ASYNCH_EVT_ProcessId = osThreadNew(TASK_HCI_ASYNCH_EVT_Process, NULL, &TASK_HCI_ASYNCH_EVT_Process_attr);
+
+
+  if(MtxHciId == NULL)
+  {
+	  APP_DBG_MSG("  Error: MtxHciId = osMutexNew( NULL )\n");
+  }
+  else
+  {
+	  APP_DBG_MSG("  Success: MtxHciId = osMutexNew( NULL )\n");
+  }
 
   return;
 }

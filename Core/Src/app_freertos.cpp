@@ -29,6 +29,7 @@
 #include "usart.h"
 #include "teamATbasic_V1_1.h"
 #include "custom_app.h"
+#include "app_ble.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,7 +67,7 @@ char deviceName[50];
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 128 * 4,
+  .stack_size = 2200 * 4, //128 * 4,
   .priority = (osPriority_t) osPriorityNormal
 
 };
@@ -182,15 +183,22 @@ void StartDefaultTask(void *argument)
 	      		 				 timeElevationTotal++
 	      		           );
 
-	      		  livedataUpdateChar(btString);
+	      		  APP_BLE_ConnStatus_t status = APP_BLE_Get_Server_Connection_Status();
 
-	      		  sprintf(btString,"%3d,%3d,",
-	      		    		 				 angle++,
-	      		    		 				 angleMax++
-	      		    		           );
+	      		  if(status == APP_BLE_CONNECTED_SERVER || status == APP_BLE_CONNECTED_CLIENT )
+	      		  {
+	      			//livedataUpdateChar(btString);
 
-	      		  angleUpdateChar(btString);
-	      		  sendConfigBluetooth();
+	      			sprintf(btString,"%3d,%3d,",
+												 angle++,
+												 angleMax++
+										   );
+
+					  angleUpdateChar(btString);
+					  //sendConfigBluetooth();
+
+	      		  }
+
 
 	      	  }
 

@@ -477,6 +477,8 @@ void livedataUpdateChar(char *btString) /* Property Read */
 
     Custom_STM_App_Update_Char(CUSTOM_STM_LIVEDATA_C, (uint8_t *)UpdateCharData);
 
+	//APP_DBG_MSG("  Sending Data here\n");
+
   return;
 }
 
