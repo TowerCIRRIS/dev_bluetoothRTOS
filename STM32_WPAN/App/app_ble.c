@@ -241,7 +241,7 @@ uint8_t a_AdvData[19] =
 osThreadId_t TASK_ADV_CANCEL_ProcessId;
 const osThreadAttr_t TASK_ADV_CANCEL_Process_attr = {
     .name = "TASK_ADV_CANCEL",
-	.stack_size = 128*4,
+	.stack_size = 128*20,
     .priority = (osPriority_t) osPriorityNone
 };
 

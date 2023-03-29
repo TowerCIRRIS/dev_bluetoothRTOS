@@ -187,7 +187,7 @@ void StartDefaultTask(void *argument)
 
 	      		  if(status == APP_BLE_CONNECTED_SERVER || status == APP_BLE_CONNECTED_CLIENT )
 	      		  {
-	      			//livedataUpdateChar(btString);
+	      			livedataUpdateChar(btString);
 
 	      			sprintf(btString,"%3d,%3d,",
 												 angle++,
@@ -195,7 +195,7 @@ void StartDefaultTask(void *argument)
 										   );
 
 					  angleUpdateChar(btString);
-					  //sendConfigBluetooth();
+					  sendConfigBluetooth();
 
 	      		  }
 
