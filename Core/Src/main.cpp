@@ -30,6 +30,8 @@
 //#include "stm32_seq.h"
 //#include "otp.h"
 #include "teamATbasic_V1_1.h"
+#include "ergoWatch.h"
+#include "fatfs_sd.h"
 #include "custom_app.h"
 /* USER CODE END Includes */
 
@@ -122,45 +124,15 @@ int main(void)
  // HAL_GPIO_WritePin(OUT_DEV_PWR_EN_GPIO_Port, OUT_DEV_PWR_EN_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  
   /* Init scheduler */
-  osKernelInitialize();  /* Init code for STM32_WPAN */
+  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
   MX_APPE_Init();
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
 
-//  char btString[53];
-//
-//  int angle = 10;
-//  int angleMax = 20;
-//
-//  int repXmin = 5;
-//  int repLimitXmin = 10;
-//  int timeElevationXmin = 15;
-//  int timeLimitXmin = 20;
-//  int repTotal = 100;
-//  int timeElevationTotal = 5;
-//
-//
-//		 sprintf(btString,"%3d,%3d,%3d,%3d,%3d,%3d",
-//				 repXmin,
-//				 repLimitXmin,
-//				 timeElevationXmin,
-//				 timeLimitXmin,
-//				 repTotal,
-//				 timeElevationTotal
-//          );
-
-  //livedataUpdateChar(btString);
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-
-// connectControlCallback(getControlBluetooth);
-// connectConfigReceiveCallback(getConfigBluetooth);
-//
-//  uint32_t currentTime = 0;
-//  uint32_t lastTime = 0;
-//
-//  sprintf(deviceName,"Montre 1");
   
     /* Start scheduler */
   osKernelStart();
@@ -170,42 +142,14 @@ int main(void)
   {
 
 
-	  //UTIL_SEQ_Run( UTIL_SEQ_DEFAULT );
     /* USER CODE END WHILE */
-   // MX_APPE_Process();
+
 
     /* USER CODE BEGIN 3 */
 
-//    currentTime = HAL_GetTick();
-//    	  if(currentTime-lastTime >= 1000)
-//    	  {
-//    		  lastTime = currentTime;
-//
-//    		  sprintf(btString,"%3d,%3d,%3d,%3d,%3d,%3d,",
-//    		 				 repXmin++,
-//    		 				 repLimitXmin++,
-//    		 				 timeElevationXmin++,
-//    		 				 timeLimitXmin++,
-//    		 				 repTotal++,
-//    		 				 timeElevationTotal++
-//    		           );
-//
-//    		  livedataUpdateChar(btString);
-//
-//    		  sprintf(btString,"%3d,%3d,",
-//    		    		 				 angle++,
-//    		    		 				 angleMax++
-//    		    		           );
-//
-//    		  angleUpdateChar(btString);
-//    		  sendConfigBluetooth();
-//
-//    	  }
 
-//    	  if(bt_newConfigPresent())
-//    	  {
-//    		  getConfigBluetooth();
-//    	  }
+
+
 
   }
   /* USER CODE END 3 */
@@ -291,272 +235,7 @@ void PeriphCommonClock_Config(void)
 
 
 
-//void sendConfigBluetooth()
-//{
-//   char cfgString[53];
-//
-//   for(int i = 0; i < 53; i++)
-//   {
-//	   cfgString[i] = '\0';
-//   }
-//      if(1)//mainMenu.page_config.pageAlerts.getToneAlertEnable())
-//      {
-//          cfgString[BT_CONFIG_TONE_ALERT] = '1';
-//      }
-//      else
-//      {
-//          cfgString[BT_CONFIG_TONE_ALERT] = '0';
-//      }
-//
-//      if(0)//mainMenu.page_config.pageAlerts.getVibrationAlertEnable())
-//      {
-//          cfgString[BT_CONFIG_VIBRATION_ALERT] = '1';
-//      }
-//      else
-//      {
-//          cfgString[BT_CONFIG_VIBRATION_ALERT] = '0';
-//      }
-//
-//      if(1)//mainMenu.page_config.pageAlerts.getRepetitionAlertEnable())
-//      {
-//          cfgString[BT_CONFIG_REPETITION_ALERT] = '1';
-//      }
-//      else
-//      {
-//          cfgString[BT_CONFIG_REPETITION_ALERT] = '0';
-//      }
-//
-//      if(1)//mainMenu.page_config.pageAlerts.getTimeAlertEnable())
-//      {
-//          cfgString[BT_CONFIG_TIME_ALERT] = '1';
-//      }
-//      else
-//      {
-//          cfgString[BT_CONFIG_TIME_ALERT] = '0';
-//      }
-//
-//      if(1)//mainMenu.page_config.pageAlerts.getAngleDetectAlertEnable())
-//      {
-//          cfgString[BT_CONFIG_ELEVATION_ANGLE_ALERT] = '1';
-//      }
-//      else
-//      {
-//          cfgString[BT_CONFIG_ELEVATION_ANGLE_ALERT] = '0';
-//      }
-//
-//      if(1)//mainMenu.page_config.pageAlerts.getAngleMaxAlertEnable())
-//      {
-//        cfgString[BT_CONFIG_MAX_ANGLE_ALERT] = '1';
-//      }
-//      else
-//      {
-//        cfgString[BT_CONFIG_MAX_ANGLE_ALERT] = '0';
-//      }
-//
-//      uintToArray((uint16_t)12, &cfgString[BT_CONFIG_ELEVATION_ANGLE_VALUE], 3 );
-//
-//      uintToArray((uint16_t)5, &cfgString[BT_CONFIG_TIME_VALUE], 3);
-//
-//      uintToArray((uint16_t)10, &cfgString[BT_CONFIG_PERIOD_TIME_VALUE], 3 );
-//
-//      uintToArray((uint16_t)20, &cfgString[BT_CONFIG_REP_LIMIT_VALUE], 3 );
-//
-//      uintToArray((uint16_t)145, &cfgString[BT_CONFIG_MAX_ANGLE_VALUE], 3 );
-//
-//
-//
-//      strcpy(&cfgString[BT_CONFIG_DEVICE_NAME],deviceName);
-//
-//     //Serial.println("Sent max value:");
-//      //Serial.println((uint16_t)(mainMenu.page_config.page_angle_max.mAngleLimit));
-//
-//
-//      bt_updateConfigString(cfgString);
-//
-//}
-//char serialOutBuffer[256];
-//
-//void getControlBluetooth(char * cfgString, int stringSize)
-//{
-//
-//	uint8_t controlValue;
-//
-//	controlValue = (uint8_t)cfgString[0];
-//
-//	 switch(controlValue)
-//	      {
-//	            case 1: // reset zero
-//
-//	            	sprintf(serialOutBuffer,"\r\nControl: Zero reset");
-//	            	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	                //elevationFlagFirst = 0; // Reset zero
-//	            break;
-//
-//	            case 2: // reset max angle
-//	            	sprintf(serialOutBuffer,"\r\nControl: Max Angle Reset reset");
-//	            	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	                //mainMenu.resetMaxAngle();
-//	            break;
-//
-//	            case 3: // reset repetitions last x min
-//
-//	                //TODO reset repetitions last x min
-//	            break;
-//
-//	            case 4: // reset time last x min
-//
-//	              //TODO reset time last x min
-//	            break;
-//
-//	             case 5: // reset repetitions total
-//
-//	                //TODO reset repetitions total
-//	            break;
-//
-//	            case 6: // reset time total
-//
-//	              //TODO reset time total
-//	            break;
-//
-//	            default:
-//	            break;
-//	      }
-//
-//}
-//
-//
-//void getConfigBluetooth(char * cfgString, int stringSize)
-//{
-//   //char cfgString[53];
-//
-////   if(bt_newConfigPresent())
-////   {
-////	   bt_readConfigString(cfgString);
-////   }
-//
-//   //mainMenu.page_config.pageAlerts.configChange = true;
-//
-//	if(cfgString[BT_CONFIG_TONE_ALERT] == '1')
-//	{
-//		//mainMenu.page_config.pageAlerts.setToneAlertEnable(1);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_TONE_ALERT: On");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//	else
-//	{
-//		//mainMenu.page_config.pageAlerts.setToneAlertEnable(0);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_TONE_ALERT: Off");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//
-//	if(cfgString[BT_CONFIG_VIBRATION_ALERT] == '1')
-//	{
-//		//mainMenu.page_config.pageAlerts.setVibrationAlertEnable(1);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_VIBRATION_ALERT: On");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//	else
-//	{
-//		//mainMenu.page_config.pageAlerts.setVibrationAlertEnable(0);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_VIBRATION_ALERT: Off");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//
-//	if(cfgString[BT_CONFIG_REPETITION_ALERT] == '1')
-//	{
-//		//mainMenu.page_config.pageAlerts.setRepetitionAlertEnable(1);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_REPETITION_ALERT: On");
-//			HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//	else
-//	{
-//		//mainMenu.page_config.pageAlerts.setRepetitionAlertEnable(0);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_REPETITION_ALERT: Off");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//
-//	if(cfgString[BT_CONFIG_TIME_ALERT] == '1')
-//	{
-//		//mainMenu.page_config.pageAlerts.setTimeAlertEnable(1);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_TIME_ALERT: On");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//	else
-//	{
-//		//mainMenu.page_config.pageAlerts.setTimeAlertEnable(0);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_TIME_ALERT: Off");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//
-//	if(cfgString[BT_CONFIG_ELEVATION_ANGLE_ALERT] == '1')
-//	{
-//		//mainMenu.page_config.pageAlerts.setAngleDetectAlertEnable(1);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_ELEVATION_ANGLE_ALERT: On");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//	else
-//	{
-//		//mainMenu.page_config.pageAlerts.setAngleDetectAlertEnable(0);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_ELEVATION_ANGLE_ALERT: Off");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//
-//	if(cfgString[BT_CONFIG_MAX_ANGLE_ALERT] == '1')
-//	{
-//	  //mainMenu.page_config.pageAlerts.setAngleMaxAlertEnable(1);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_MAX_ANGLE_ALERT: On");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//	else
-//	{
-//	  //mainMenu.page_config.pageAlerts.setAngleMaxAlertEnable(0);
-//		sprintf(serialOutBuffer,"\r\nBT_CONFIG_MAX_ANGLE_ALERT: Off");
-//		HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//	}
-//
-//	//mainMenu.page_config.page_angle_detect.mAngleLimit = arrayToUint(&cfgString[BT_CONFIG_ELEVATION_ANGLE_VALUE] , 3);
-//	//mainMenu.page_config.page_angle_detect.configChange = true;
-//	sprintf(serialOutBuffer,"\r\nBT_CONFIG_ELEVATION_ANGLE_VALUE:%u",arrayToUint(&cfgString[BT_CONFIG_ELEVATION_ANGLE_VALUE],3));
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//
-//	//mainMenu.page_config.page_time.mTimeTargetMilliseconds = arrayToUint(&cfgString[BT_CONFIG_TIME_VALUE] , 3)*60*1000;
-//	//mainMenu.page_config.page_time.configChange = true;
-//	sprintf(serialOutBuffer,"\r\nBT_CONFIG_TIME_VALUE:%u",arrayToUint(&cfgString[BT_CONFIG_TIME_VALUE],3));
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//	//mainMenu.page_config.page_Length.mPeriodLength = arrayToUint(&cfgString[BT_CONFIG_PERIOD_TIME_VALUE] , 3)*60*1000;
-//	//mainMenu.page_config.page_Length.configChange = true;
-//	sprintf(serialOutBuffer,"\r\nBT_CONFIG_PERIOD_TIME_VALUE:%u",arrayToUint(&cfgString[BT_CONFIG_PERIOD_TIME_VALUE],3));
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//	//mainMenu.page_config.page_rep.mRepLimit = arrayToUint(&cfgString[BT_CONFIG_REP_LIMIT_VALUE] , 3);
-//	//mainMenu.page_config.page_rep.configChange = true;
-//	sprintf(serialOutBuffer,"\r\nBT_CONFIG_REP_LIMIT_VALUE:%u",arrayToUint(&cfgString[BT_CONFIG_REP_LIMIT_VALUE],3));
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//	//mainMenu.page_config.page_angle_max.mAngleLimit = arrayToUint(&cfgString[BT_CONFIG_MAX_ANGLE_VALUE] , 3);
-//	//mainMenu.page_config.page_angle_max.configChange = true;
-//	sprintf(serialOutBuffer,"\r\nBT_CONFIG_MAX_ANGLE_VALUE:%u",arrayToUint(&cfgString[BT_CONFIG_MAX_ANGLE_VALUE],3));
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//	//mainMenu.page_config.configChange = true;
-//	//strcpy(mainMenu.page_config.bluetoothDeviceName,&cfgString[BT_CONFIG_DEVICE_NAME]);
-//	sprintf(serialOutBuffer,"\r\nBT_CONFIG_DEVICE_NAME: ");
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//	sprintf(deviceName,&cfgString[BT_CONFIG_DEVICE_NAME]);
-//	sprintf(serialOutBuffer,deviceName);
-//	HAL_UART_Transmit(&huart1, (uint8_t*)serialOutBuffer, strlen(serialOutBuffer), HAL_MAX_DELAY);
-//
-//	//Serial.print("\n Name received:");
-//	//Serial.println(mainMenu.page_config.bluetoothDeviceName);
-//
-//	//BLE.setDeviceName(mainMenu.page_config.bluetoothDeviceName);
-//	//BLE.setDeviceName(DEFAULT_BLUTOOTH_NAME);
-//	//BLE.advertise();
-//
-//}
+
 
 /* USER CODE END 4 */
 

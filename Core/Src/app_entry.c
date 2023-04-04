@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -621,18 +621,5 @@ void shci_cmd_resp_wait(uint32_t timeout)
 }
 
 /* USER CODE BEGIN FD_WRAP_FUNCTIONS */
-void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
-{
-//  switch (GPIO_Pin)
-//  {
-//    case GPIO_PIN_12:
-//     APP_BLE_Key_Button1_Action();
-//      break;
-//    default:
-//      break;
-//
-//  }
-  return;
-}
 
 /* USER CODE END FD_WRAP_FUNCTIONS */
