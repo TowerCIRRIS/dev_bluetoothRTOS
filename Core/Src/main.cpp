@@ -31,7 +31,7 @@
 //#include "otp.h"
 #include "teamATbasic_V1_1.h"
 
-#include "fatfs_sd.h"
+//#include "fatfs_sd.h"
 #include "custom_app.h"
 /* USER CODE END Includes */
 
