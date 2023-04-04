@@ -23,7 +23,7 @@
 #include "rf.h"
 #include "rtc.h"
 #include "gpio.h"
-#include "usart.h"
+//#include "usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
