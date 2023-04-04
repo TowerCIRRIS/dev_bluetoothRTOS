@@ -30,7 +30,7 @@
 //#include "stm32_seq.h"
 //#include "otp.h"
 #include "teamATbasic_V1_1.h"
-#include "ergoWatch.h"
+
 #include "fatfs_sd.h"
 #include "custom_app.h"
 /* USER CODE END Includes */
